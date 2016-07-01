@@ -27,7 +27,7 @@ def from_latlng(lat, lng):
     state = json_dict['results'][0]['address_components'][5]['short_name']
     if state == 'US':
         city = json_dict['results'][0]['address_components'][2]['short_name']
-        state = json_dict['results'][0]['address_components'][4]['short_name']        
+        state = json_dict['results'][0]['address_components'][4]['short_name']
     return address, city, state
 
 

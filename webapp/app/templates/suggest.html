@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../static/img/favicon.png">
+    <title>Fit Calendar</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/css/main.css" rel="stylesheet">
+    <!-- Fonts from Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><b>Fit Calendar</b></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/index">HOME</a></li>
+                    <li><a href="/calendar">CALENDAR</a></li>
+                    <li><a href="/index#about">ABOUT</a></li>
+                    <li><a href="/slides">SLIDES</a></li>
+                    <li><a class="page-scroll" href="/logout">LOGOUT</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--/.Fixed navbar -->
+    <div id="headerwrap">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-2 ">
+                    <font color="white " size="6 ">Tomorrow:</font>
+                    <div id="weather"></div>
+                </div>
+                <div class="col-lg-8 col-lg-offset-2 ">
+                    <h1 class=" centered ">{{motto}}</h1>
+                </div>
+            </div>
+            </br>
+            <div class="row ">
+                <div class="col-lg-6">
+                    <div class="panel panel-info ">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title ">Nearby running path around {{address}} </h3>
+                        </div>
+                        <div class="panel-body ">
+                            <table class="text-primary table table-striped table-bordered table-list ">
+                                <thead class="text-center ">
+                                    <tr>
+                                        <th class="text-center ">Running Path</th>
+                                        <th class="text-center ">Distance</th>
+                                        <th class="text-center ">Transit time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in locations[1:5] %}
+                                    <tr>
+                                        <td>
+                                            <a href={{result[ 'url']}} target="_blank ">
+                                                {{ result['name'] }}
+                                                </a>
+                                        </td>
+                                        <td>{{ result['distance'] }} mi</td>
+                                        <td>{{ result['travel_time']}} min</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- /headerwrap -->
+    <div class="container ">
+        <div class="row centered ">
+            <div class="col-lg-3 "></div>
+        </div>
+        <p class="centered ">Insight Health Data Science Project
+            <br/>Created by Yanxin - 2016</p>
+    </div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js "></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js "></script>
+    <script src="../static/js/bootstrap.min.js "></script>
+    <script src="../static/js/weather.js "></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js "></script>
+</body>
+
+</html>

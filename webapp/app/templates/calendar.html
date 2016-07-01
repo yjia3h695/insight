@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../static/img/favicon.png">
+    <title>Fit Calendar</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/css/main.css" rel="stylesheet">
+    <!-- Fonts from Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><b>Fit Calendar</b></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/index">HOME</a></li>
+                    <li><a href="/calendar">CALENDAR</a></li>
+                    <li><a href="/index#about">ABOUT</a></li>
+                    <li><a href="/slides">SLIDES</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">SETTINGS<span class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="/calendar" method="GET">
+                                            <div class="row centered">
+                                                <label for="s_hr"> Day start time</label>
+                                                <select name='s_hr' , class="btn">
+                                                    <option value=6>06</option>
+                                                    <option value=7 selected>07</option>
+                                                    <option value=8>08</option>
+                                                    <option value=9>09</option>
+                                                </select>
+                                                <select name='s_min' , class="btn">
+                                                    <option value='0' selected>00</option>
+                                                    <option value='15'>15</option>
+                                                    <option value='30'>30</option>
+                                                    <option value='45'>45</option>
+                                                </select>
+                                            </div>
+                                            </br>
+                                            <div class="row centered">
+                                                <label for="s_hr">Day end time</label>
+                                                <select name='e_hr' , class="btn">
+                                                    <option value='17'>17</option>
+                                                    <option value='18'>18</option>
+                                                    <option value='19'>19</option>
+                                                    <option value='20' selected>20</option>
+                                                    <option value='21'>21</option>
+                                                </select>
+                                                <select name='e_min' , class="btn">
+                                                    <option value='0' selected>00</option>
+                                                    <option value='15'>15</option>
+                                                    <option value='30'>30</option>
+                                                    <option value='45'>45</option>
+                                                </select>
+                                                </br>
+                                                <div class="row centered">
+                                                    </br>
+                                                    <select name='prim' , class="btn">
+                                                        <option value='1'>Primary Calendar only</option>
+                                                        <option value='0' selected>All calender</option>
+                                                    </select>
+                                                </div>
+                                                </br>
+                                                <button type="submit" class="btn btn-primary" ">Submit!</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="page-scroll " href="/logout ">LOGOUT</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--/.Fixed navbar -->
+<div id="headerwrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 ">
+                    <font color="white" size="6">Tomorrow:</font>
+                    <div id="weather"></div>
+                </div>
+                <div class="col-lg-8 col-lg-offset-2 ">
+                    <h1 class=" centered">{{motto}}</h1>
+                </div>  
+            </div>
+            </br>
+            <div class="row">
+                <div class="col-lg-5 ">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title ">Your schedule tomorrow</h3>
+                        </div>
+                        <div class="panel-body ">
+                            <table class="text-primary table table-striped table-bordered table-list ">
+                                <thead class="text-center ">
+                                    <tr>
+                                        <th class="text-center ">Event</th>
+                                        <th class="text-center ">Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in output %}
+                                    <tr>                            
+                                        <td rowspan="2">{{ result['summary'] }}</td>
+                                        <td>{{ result['start'] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ result['end']}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>                                
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading ">
+                            <h3 class="panel-title ">Nearby running path around {{output[0]['location']}} </h3>
+                        </div>
+                        <div class="panel-body ">
+                            <table class="text-primary table table-striped table-bordered table-list ">
+                                <thead class="text-center ">
+                                    <tr>
+                                        <th class="text-center ">Running Path</th>
+                                        <th class="text-center ">Distance</th>
+                                        <th class="text-center ">Transit time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in locations[1:5] %}
+                                    <tr>
+                                        <td>
+                                            <a href={{result[ 'url']}} target="_blank "> {{ result['name'] }}</a>
+                                        </td>
+                                        <td>{{ result['distance'] }} mi</td>
+                                        <td>{{ result['travel_time']}} min</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /headerwrap -->
+    <div class="container ">
+        <div class="row centered ">
+            <div class="col-lg-3 "></div>
+        </div>
+        <p class="centered ">Insight Health Data Science Project
+            <br/>Created by Yanxin - 2016</p>
+    </div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js "></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js "></script>
+    <script src="../static/js/bootstrap.min.js "></script>    
+    <script src="../static/js/weather.js "></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js "></script>
+</body>
+
+</html>
